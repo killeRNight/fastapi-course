@@ -3,7 +3,7 @@ name: Build and Deploy Code
 on: [push, pull_request]
 
 jobs:
-  job1:
+  build:
     environment:
       name: testing
     env:
@@ -67,9 +67,19 @@ jobs:
         with:
           context: ./
           file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/get_started:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+
+  deploy:
+    ruuns-on: ubuntu-latest
+    needs: [build]
+
+    steps:
+      - name: deploying stuff
+        run: echo "deploy step"
+
 
 
