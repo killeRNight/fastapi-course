@@ -74,7 +74,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
 
   deploy:
-    ruuns-on: ubuntu-latest
+    runs-on: ubuntu-latest
     needs: [build]
 
     steps:
