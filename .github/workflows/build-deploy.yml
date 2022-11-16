@@ -84,9 +84,21 @@ jobs:
     steps:
       - name: pulling gir repo
         uses: actions/checkout@v2
+
       - name: deploying to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+
+      - name: deploying to ubuntu server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_PASSWORD }}
+          password: ${{ secrets.PROD_PASSWORD }}
+          script: |
+            cd server/src
+            git pull
+            sudo systemctl restart api
