@@ -39,4 +39,4 @@ app.include_router(vote.router)
 
 @app.get("/")
 def index():
-    return {"message": "Welcome friend!"}
+    return {"message": "Welcome friend! From CI/CD pipeline"}
