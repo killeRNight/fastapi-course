@@ -42,7 +42,7 @@ def get_posts(
     return results
 
 
-@router.get("/{post_id}", response_model=schemas.Post)
+@router.get("/{post_id}", response_model=schemas.PostOut)
 def get_post(
         post_id: int,
         db: Session = Depends(get_db),
